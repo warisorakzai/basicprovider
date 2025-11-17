@@ -1,39 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_demo/Providers/Favorites_provider.dart';
-import 'package:provider_demo/my_favorites.dart';
-// ignore: depend_on_referenced_packages
 
-class Favorites extends StatelessWidget {
-  const Favorites({super.key});
+class MyFavorites extends StatelessWidget {
+  const MyFavorites({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final favoriteProvider = Provider.of<FavoritesProvider>(
-      context,
-      listen: false,
-    );
-    print('Build');
+    final favoritesprovider = Provider.of<FavoritesProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('FavoritesApp'),
-        actions: [
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyFavorites()),
-              );
-            },
-            child: Icon(Icons.favorite),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: Text('My Favorite List')),
+
       body: Column(
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: 100,
+              itemCount: favoritesprovider.selectedItem.length,
               itemBuilder: (context, index) {
                 return Consumer<FavoritesProvider>(
                   builder:
